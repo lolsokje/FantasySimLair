@@ -4935,6 +4935,16 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+var toggleSidebar = document.querySelector('#sidebarCollapse');
+var sidebar = document.querySelector('#sidebar');
+toggleSidebar.addEventListener('click', function () {
+  if (sidebar.classList.contains('active')) {
+    sidebar.classList.remove('active');
+  } else {
+    sidebar.classList.add('active');
+  }
+});
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":

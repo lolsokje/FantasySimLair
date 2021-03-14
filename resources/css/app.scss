@@ -14,10 +14,20 @@ body {
   background-color: $base-color;
 }
 
+a,
+.btn-link {
+  text-decoration: none;
+  color: white;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
 .btn-primary {
   &:hover {
-    background-color: $primary-alt-color;
-    border-color: $primary-alt-color;
+    background-color: $primary;
+    border-color: $primary;
   }
 }
 
@@ -31,4 +41,40 @@ body {
   background-color: $success;
   border-color: $success;
   color: white;
+}
+
+#sidebar {
+  min-width: 300px;
+  max-width: 300px;
+  background-color: $dark;
+  transition: all 0.3s;
+
+  .logo {
+    display: block;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+  }
+
+  ul {
+    li {
+      font-size: 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      a,
+      button {
+        padding: 10px 0;
+        display: block;
+      }
+    }
+  }
+
+  &.active {
+    margin-left: -300px;
+  }
+}
+
+#content {
+  min-height: 100vh;
+  width: 100%;
 }

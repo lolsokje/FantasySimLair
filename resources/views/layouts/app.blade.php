@@ -9,20 +9,41 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
-    <div class="container">
-        @guest
-            <a href="{{ route('discord.redirect') }}" class="btn btn-primary text-white"><i
-                        class="fab fa-discord fa-lg"></i> Login</a>
-        @else
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
+<div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+        <div class="p-4 pt-5">
+            @auth
+                <img src="{{ auth()->user()->avatar }}" class="img logo rounded-circle mb-5" alt=""/>
+            @endauth
 
-                <button type="submit" class="btn btn-outline-danger">Logout</button>
-            </form>
-        @endguest
+            <ul class="list-unstyled components mb-5">
+                @auth
+                    <li>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+
+                            <button type="submit" class="btn btn-link">Logout</button>
+                        </form>
+                    </li>
+                @else
+                    <li>
+                        <a href="{{ route('discord.redirect') }}">Login</a>
+                    </li>
+                @endauth
+            </ul>
+        </div>
+    </nav>
+
+    <div id="content" class="p-4 p-md-5">
+        <nav class="navbar navbar-expand lg navbar-dark bg-dark rounded">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                    <i class="fa fa-bars"></i>
+                </button>
+            </div>
+        </nav>
     </div>
-</nav>
+</div>
 
 @includeWhen(session('error'), 'includes.alert', ['type' => 'danger', 'message' => session('error')])
 @includeWhen(session('notice'), 'includes.alert', ['type' => 'success', 'message' => session('notice')])
