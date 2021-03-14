@@ -16901,6 +16901,9 @@ a:hover,
   font-size: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
+#sidebar ul li i {
+  margin-right: 5px;
+}
 #sidebar ul li a,
 #sidebar ul li button {
   padding: 10px 0;

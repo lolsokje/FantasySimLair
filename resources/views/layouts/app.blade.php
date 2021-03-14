@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
-<div class="wrapper d-flex align-items-stretch">
+<div class="wrapper d-flex">
     <nav id="sidebar">
         <div class="p-4 pt-5">
             @auth
@@ -18,13 +18,29 @@
                 @endif
             @endauth
 
-            <ul class="list-unstyled components mb-5">
+            <ul class="list-unstyled mb-5">
                 @auth
+                    @if (auth()->user()->is_admin)
+                        <li>
+                            <a href="#" data-bs-toggle="collapse" data-bs-target="#adminSubmenu" role="button">
+                                <i class="fas fa-user-cog"></i>
+                                Admin
+                            </a>
+                        </li>
+                        <ul class="collapse" id="adminSubmenu">
+                            <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="#"><i class="fas fa-hashtag"></i> Channels</a></li>
+                            <li><a href="#"><i class="fas fa-trophy"></i> Championships</a></li>
+                        </ul>
+                    @endif
                     <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
 
-                            <button type="submit" class="btn btn-link">Logout</button>
+                            <button type="submit" class="btn btn-link">
+                                <i class="fas fa-sign-out-alt"></i>
+                                Logout
+                            </button>
                         </form>
                     </li>
                 @else
