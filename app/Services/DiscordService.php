@@ -14,12 +14,14 @@ class DiscordService
      */
     public function upsertUser(SocialiteUser $discordUser): User
     {
+        $avatar = $this->getAvatar($discordUser);
+
         $user = User::updateOrCreate([
             'provider_id' => $discordUser->getId()
         ], [
             'name' => $discordUser->getName(),
             'email' => $discordUser->getEmail(),
-            'avatar' => $discordUser->getAvatar(),
+            'avatar' => $avatar,
             'discriminator' => $discordUser->user['discriminator'],
             'token' => $discordUser->token,
             'refresh_token' => $discordUser->refreshToken,
@@ -59,5 +61,25 @@ class DiscordService
         $ret['is_admin'] = $isMember && in_array(config('discord.admin_role_id'), $body->roles);
 
         return $ret;
+    }
+
+    /**
+     * @param SocialiteUser $discordUser
+     * @return string|null
+     */
+    private function getAvatar(SocialiteUser $discordUser): ?string
+    {
+        // getAvatar() will always return a string, even if no avatar exists. The user array contains null if no avatar
+        // is set by the user, so that value is checked before assigning the variable.
+        $userAvatar = $discordUser->user['avatar'];
+        $avatar = $userAvatar ? $discordUser->getAvatar() : null;
+
+        // if the avatar starts with 'a_', it's gif-compatible, so remove the extension and replace it with .gif
+        if ($avatar && str_starts_with($userAvatar, 'a_')) {
+            $avatar = substr($avatar, 0, -3);
+            $avatar .= 'gif';
+        }
+
+        return $avatar;
     }
 }

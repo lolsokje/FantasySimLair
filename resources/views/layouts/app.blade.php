@@ -13,7 +13,9 @@
     <nav id="sidebar">
         <div class="p-4 pt-5">
             @auth
-                <img src="{{ auth()->user()->avatar }}" class="img logo rounded-circle mb-5" alt=""/>
+                @if (auth()->user()->avatar)
+                    <img src="{{ auth()->user()->avatar }}" class="img logo rounded-circle mb-5" alt=""/>
+                @endif
             @endauth
 
             <ul class="list-unstyled components mb-5">
