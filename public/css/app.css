@@ -16906,7 +16906,7 @@ a:hover,
   padding: 10px 0;
   display: block;
 }
-#sidebar.active {
+#sidebar.inactive {
   margin-left: -300px;
 }
 

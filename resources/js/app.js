@@ -4,9 +4,9 @@ const toggleSidebar = document.querySelector('#sidebarCollapse');
 const sidebar = document.querySelector('#sidebar');
 
 toggleSidebar.addEventListener('click', () => {
-   if (sidebar.classList.contains('active')) {
-       sidebar.classList.remove('active');
+   if (sidebar.classList.contains('inactive')) {
+       sidebar.classList.remove('inactive');
    } else {
-       sidebar.classList.add('active');
+       sidebar.classList.add('inactive');
    }
 });

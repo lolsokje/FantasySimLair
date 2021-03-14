@@ -4938,10 +4938,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 var toggleSidebar = document.querySelector('#sidebarCollapse');
 var sidebar = document.querySelector('#sidebar');
 toggleSidebar.addEventListener('click', function () {
-  if (sidebar.classList.contains('active')) {
-    sidebar.classList.remove('active');
+  if (sidebar.classList.contains('inactive')) {
+    sidebar.classList.remove('inactive');
   } else {
-    sidebar.classList.add('active');
+    sidebar.classList.add('inactive');
   }
 });
 
