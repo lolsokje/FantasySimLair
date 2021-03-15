@@ -16856,6 +16856,7 @@ readers do not read off random characters that represent icons */
 
 body {
   background-color: #202225;
+  color: white;
 }
 
 a,
@@ -16897,6 +16898,9 @@ a:hover,
   height: 120px;
   margin: 0 auto;
 }
+#sidebar ul {
+  list-style-type: none;
+}
 #sidebar ul li {
   font-size: 16px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -16916,4 +16920,9 @@ a:hover,
 #content {
   min-height: 100vh;
   width: 100%;
+}
+
+.table-padded th, .table-padded td {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }

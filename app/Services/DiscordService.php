@@ -64,6 +64,33 @@ class DiscordService
     }
 
     /**
+     * @param string $id
+     * @return array
+     */
+    public function getDiscordUserDetails(string $id): array
+    {
+        $baseUrl = config('discord.api_base_url');
+        $simLairId = config('discord.sim_lair_id');
+        $url = $baseUrl . "/guilds/{$simLairId}/members/{$id}";
+
+        $response = Http::withToken(config('discord.bot_token'), 'Bot')->get($url);
+        $status = $response->status();
+        $body = json_decode($response->body());
+
+        if ($status === 200) {
+            return [
+                'success' => true,
+                'name' => $body->user->username
+            ];
+        }
+
+        return [
+            'success' => false,
+            'code' => $status
+        ];
+    }
+
+    /**
      * @param SocialiteUser $discordUser
      * @return string|null
      */

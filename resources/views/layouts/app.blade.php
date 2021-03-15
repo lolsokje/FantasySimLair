@@ -7,6 +7,7 @@
     <title>Laravel</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @livewireStyles
 </head>
 <body>
 <div class="wrapper d-flex">
@@ -27,10 +28,10 @@
                                 Admin
                             </a>
                         </li>
-                        <ul class="collapse" id="adminSubmenu">
-                            <li><a href="#"><i class="fas fa-users"></i> Users</a></li>
-                            <li><a href="#"><i class="fas fa-hashtag"></i> Channels</a></li>
-                            <li><a href="#"><i class="fas fa-trophy"></i> Championships</a></li>
+                        <ul class="collapse {{ Request::is('admin/*') ? 'show' : '' }}" id="adminSubmenu">
+                            <li><a href="{{ route('admin.users') }}"><i class="fas fa-users"></i> Users</a></li>
+                            <li><a href="{{ route('admin.channels') }}"><i class="fas fa-hashtag"></i> Channels</a></li>
+                            <li><a href="{{ route('admin.championships') }}"><i class="fas fa-trophy"></i> Championships</a></li>
                         </ul>
                     @endif
                     <li>
@@ -60,12 +61,17 @@
                 </button>
             </div>
         </nav>
+
+        <div class="mt-5">
+            @includeWhen(session('error'), 'includes.alert', ['type' => 'danger', 'message' => session('error')])
+            @includeWhen(session('notice'), 'includes.alert', ['type' => 'success', 'message' => session('notice')])
+
+            @yield('content')
+        </div>
     </div>
 </div>
 
-@includeWhen(session('error'), 'includes.alert', ['type' => 'danger', 'message' => session('error')])
-@includeWhen(session('notice'), 'includes.alert', ['type' => 'success', 'message' => session('notice')])
-
 <script src="{{ asset('js/app.js') }}" defer></script>
+@livewireScripts
 </body>
 </html>
