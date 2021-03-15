@@ -17,7 +17,8 @@
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
-        "martinbean/socialite-discord-provider": "^1.2"
+        "martinbean/socialite-discord-provider": "^1.2",
+        "tabuna/breadcrumbs": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

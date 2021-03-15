@@ -31,7 +31,8 @@
                         <ul class="collapse {{ Request::is('admin/*') ? 'show' : '' }}" id="adminSubmenu">
                             <li><a href="{{ route('admin.users') }}"><i class="fas fa-users"></i> Users</a></li>
                             <li><a href="{{ route('admin.channels') }}"><i class="fas fa-hashtag"></i> Channels</a></li>
-                            <li><a href="{{ route('admin.championships') }}"><i class="fas fa-trophy"></i> Championships</a></li>
+                            <li><a href="{{ route('admin.championships') }}"><i class="fas fa-trophy"></i> Championships</a>
+                            </li>
                         </ul>
                     @endif
                     <li>
@@ -56,6 +57,8 @@
     <div id="content" class="p-4 p-md-5">
         <nav class="navbar navbar-expand lg navbar-dark bg-dark rounded">
             <div class="container-fluid">
+                @include('includes.breadcrumbs')
+
                 <button type="button" id="sidebarCollapse" class="btn btn-primary">
                     <i class="fa fa-bars"></i>
                 </button>
