@@ -36,8 +36,10 @@ class AuthController extends Controller
         }
 
         $discordUser = Socialite::driver('discord')->user();
+        $details = $discordService->getDiscordUser($discordUser->getId());
+        $isAdmin = $discordService->isAdmin($details->roles);
 
-        $user = $discordService->upsertUser($discordUser);
+        $user = $discordService->upsertUser($discordUser, $isAdmin);
 
         auth()->login($user, true);
 
