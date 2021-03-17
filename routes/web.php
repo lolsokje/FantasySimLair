@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -32,6 +33,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin']], function () {
         Route::post('', [UserController::class, 'store'])->name('admin.user.store');
     });
 
-    Route::get('channels', [AdminController::class, 'channels'])->name('admin.channels');
+    Route::prefix('channels')->group(function () {
+        Route::get('', [AdminController::class, 'channels'])->name('admin.channels');
+        Route::get('create', [ChannelController::class, 'create'])->name('admin.channels.create');
+        Route::post('store', [ChannelController::class, 'store'])->name('admin.channels.store');
+        Route::delete('{channel}', [ChannelController::class, 'destroy'])->name('admin.channels.destroy');
+    });
+
+
     Route::get('championships', [AdminController::class, 'championships'])->name('admin.championships');
 });

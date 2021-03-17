@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use App\Exceptions\InvalidDiscordUserRequest;
+use App\Exceptions\InvalidChannelRequestException;
+use App\Exceptions\InvalidUserRequestException;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Contracts\User as SocialiteUser;
@@ -49,18 +50,60 @@ class DiscordService
      */
     public function getDiscordUser(string $id, ?string $exceptionRoute = 'index'): stdClass
     {
-        $baseUrl = config('discord.api_base_url');
-        $simLairId = config('discord.sim_lair_id');
-        $url = $baseUrl . "/guilds/{$simLairId}/members/{$id}";
+        $response = $this->makeRequest("members/{$id}");
 
-        $response = Http::withToken(config('discord.bot_token'), 'Bot')->get($url);
-        $status = $response->status();
-
-        if ($status !== 200) {
-            (new InvalidDiscordUserRequest)->render($status, $exceptionRoute);
+        if ($response['status'] !== 200) {
+            (new InvalidUserRequestException)->render($response['status']);
         }
 
-        return json_decode($response->body());
+        return $response['body'];
+    }
+
+    /**
+     * @param string $id
+     * @return array
+     */
+    public function getDiscordChannel(string $id): array
+    {
+        $baseUrl = config('discord.api_base_url');
+
+        $response = Http::withToken(config('discord.bot_token'), 'Bot')->get($baseUrl . "/channels/{$id}");
+        $status = $response->status();
+
+        if ($response->status() !== 200) {
+            (new InvalidChannelRequestException)->render($status);
+        }
+
+        return json_decode($response->body(), true);
+//        $response = $this->makeRequest("channels");
+//
+//        if ($response['status'] !== 200) {
+//            die();
+//        }
+//
+//        $channels = $response['body'];
+//
+//        foreach ($channels as $channel) {
+//            dd($channel);
+//        }
+    }
+
+    /**
+     * @param string $url
+     * @return array
+     */
+    private function makeRequest(string $url): array
+    {
+        $baseUrl = config('discord.api_base_url');
+        $simLairId = config('discord.sim_lair_id');
+        $url = $baseUrl . "/guilds/{$simLairId}/" . $url;
+
+        $response = Http::withToken(config('discord.bot_token'), 'Bot')->get($url);
+
+        return [
+            'status' => $response->status(),
+            'body' => json_decode($response->body())
+        ];
     }
 
     /**

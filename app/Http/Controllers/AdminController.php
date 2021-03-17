@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -24,7 +25,11 @@ class AdminController extends Controller
      */
     public function channels(): Renderable
     {
-        return view('admin.channels');
+        $channels = Channel::all();
+
+        return view('admin.channels.index', [
+            'channels' => $channels
+        ]);
     }
 
     /**

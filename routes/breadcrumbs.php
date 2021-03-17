@@ -19,6 +19,10 @@ Breadcrumbs::for('admin.channels', function (Trail $trail) {
     $trail->parent('index')->push('Channels', route('admin.channels'));
 });
 
+Breadcrumbs::for('admin.channels.create', function (Trail $trail) {
+    $trail->parent('admin.channels')->push('Add channel', route('admin.channels.create'));
+});
+
 Breadcrumbs::for('admin.championships', function (Trail $trail) {
     $trail->parent('index')->push('Championships', route('admin.championships'));
 });

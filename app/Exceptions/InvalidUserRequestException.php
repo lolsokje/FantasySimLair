@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\RedirectResponse;
 
-class InvalidDiscordUserRequest extends Exception
+class InvalidUserRequestException extends Exception
 {
     private const RESPONSES = [
         400 => "The provided user ID is invalid",
@@ -15,12 +15,12 @@ class InvalidDiscordUserRequest extends Exception
 
     /**
      * @param int $code
-     * @param string $exceptionRoute
      * @return RedirectResponse
      */
-    public function render(int $code, string $exceptionRoute): RedirectResponse
+    public function render(int $code): RedirectResponse
     {
+        $route = auth()->check() && auth()->user()->is_admin ? route('admin.users.create') : route('index');
         $error = self::RESPONSES[$code];
-        throw new HttpResponseException(redirect(route($exceptionRoute))->with('error', $error));
+        throw new HttpResponseException(redirect($route)->with('error', $error));
     }
 }

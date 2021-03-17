@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\InvalidDiscordUserRequest;
+use App\Exceptions\InvalidUserRequestException;
 use App\Http\Requests\CreateUserRequest;
 use App\Models\User;
 use App\Services\DiscordService;
