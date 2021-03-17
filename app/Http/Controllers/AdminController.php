@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Championship;
 use App\Models\Channel;
 use App\Models\User;
 use Illuminate\Contracts\Support\Renderable;
@@ -13,7 +14,7 @@ class AdminController extends Controller
      */
     public function users(): Renderable
     {
-        $users = User::all();
+        $users = User::orderBy('name')->get();
 
         return view('admin.users.index', [
             'users' => $users
@@ -25,7 +26,7 @@ class AdminController extends Controller
      */
     public function channels(): Renderable
     {
-        $channels = Channel::all();
+        $channels = Channel::orderBy('name')->get();
 
         return view('admin.channels.index', [
             'channels' => $channels
@@ -37,6 +38,10 @@ class AdminController extends Controller
      */
     public function championships(): Renderable
     {
-        return view('admin.championships');
+        $championships = Championship::orderBy('name')->get();
+
+        return view('admin.championships.index', [
+            'championships' => $championships
+        ]);
     }
 }

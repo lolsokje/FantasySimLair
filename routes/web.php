@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -40,6 +41,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin']], function () {
         Route::delete('{channel}', [ChannelController::class, 'destroy'])->name('admin.channels.destroy');
     });
 
-
-    Route::get('championships', [AdminController::class, 'championships'])->name('admin.championships');
+    Route::prefix('championships')->group(function () {
+        Route::get('', [AdminController::class, 'championships'])->name('admin.championships');
+        Route::get('create', [ChampionshipController::class, 'create'])->name('admin.championships.create');
+        Route::post('store', [ChampionshipController::class, 'store'])->name('admin.championships.store');
+    });
 });
