@@ -28,11 +28,11 @@ class UserController extends Controller
     public function store(CreateUserRequest $request, DiscordService $discordService): RedirectResponse
     {
         $providerId = $request->get('user_id');
-        $discordUser = $discordService->getDiscordUser($providerId, 'admin.users.create');
+        $discordUser = $discordService->getDiscordUser($providerId);
 
         $user = User::create([
-            'provider_id' => $discordUser->id,
-            'name' => $discordUser->username,
+            'provider_id' => $discordUser->user->id,
+            'name' => $discordUser->user->username,
         ]);
 
         return redirect(route('admin.users'))->with('notice', "User with username {$user->name} has been created");

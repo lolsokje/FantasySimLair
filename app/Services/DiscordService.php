@@ -45,10 +45,9 @@ class DiscordService
 
     /**
      * @param string $id
-     * @param string|null $exceptionRoute
      * @return stdClass
      */
-    public function getDiscordUser(string $id, ?string $exceptionRoute = 'index'): stdClass
+    public function getDiscordUser(string $id): stdClass
     {
         $response = $this->makeRequest("members/{$id}");
 
