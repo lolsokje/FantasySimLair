@@ -14,6 +14,17 @@ class ChampionshipController extends Controller
     /**
      * @return Renderable
      */
+    public function index(): Renderable
+    {
+        $championships = auth()->user()->championships;
+        return view('championships.index', [
+            'championships' => $championships
+        ]);
+    }
+
+    /**
+     * @return Renderable
+     */
     public function create(): Renderable
     {
         $users = User::orderBy('name')->get();

@@ -36,6 +36,9 @@
                         </ul>
                     @endif
                     <li>
+                        <a href="{{ route('championships.index') }}"><i class="fas fa-trophy"></i> My championships</a>
+                    </li>
+                    <li>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
 

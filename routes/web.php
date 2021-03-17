@@ -47,3 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin']], function () {
         Route::post('store', [ChampionshipController::class, 'store'])->name('admin.championships.store');
     });
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('championships', [ChampionshipController::class, 'index'])->name('championships.index');
+});
