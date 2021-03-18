@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Championship;
+use App\Models\Season;
 use Tabuna\Breadcrumbs\Breadcrumbs;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -32,14 +34,21 @@ Breadcrumbs::for('admin.championships.create', function (Trail $trail) {
 });
 
 Breadcrumbs::for('championships.index', function (Trail $trail) {
-    $trail->parent('index')->push('My championships', route('championships.index'));
+    $trail->parent('index')->push('Championships', route('championships.index'));
 });
 
-// @todo fix these breadcrumbs to include correct variables
-Breadcrumbs::for('championships.show', function (Trail $trail) {
-    $trail->parent('championships.index')->push('Championship seasons', route('championships.show', ['championship' => 'a']));
+Breadcrumbs::for('championships.show', function (Trail $trail, Championship $championship) {
+    $trail->parent('championships.index')->push('Championship seasons', route('championships.show', [$championship]));
 });
 
-Breadcrumbs::for('seasons.create', function (Trail $trail) {
-    $trail->parent('championships.show')->push('Add season', route('seasons.create', ['championship' => '1']));
+Breadcrumbs::for('seasons.create', function (Trail $trail, Championship $championship) {
+    $trail->parent('championships.show')->push('Add season', route('seasons.create', [$championship]));
+});
+
+Breadcrumbs::for('seasons.show', function (Trail $trail, Season $season) {
+    $trail->parent('championships.show', $season->championship)->push('View season', route('seasons.show', [$season]));
+});
+
+Breadcrumbs::for('seasons.edit', function (Trail $trail, Season $season) {
+    $trail->parent('championships.show', $season->championship)->push('Edit season', route('seasons.edit', [$season]));
 });

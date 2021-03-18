@@ -20,6 +20,7 @@
             @endauth
 
             <ul class="list-unstyled mb-5">
+                <li><a href="{{ route('index') }}"><i class="fas fa-home"></i> Index</a></li>
                 @auth
                     @if (auth()->user()->is_admin)
                         <li>
