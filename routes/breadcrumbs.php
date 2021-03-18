@@ -34,3 +34,12 @@ Breadcrumbs::for('admin.championships.create', function (Trail $trail) {
 Breadcrumbs::for('championships.index', function (Trail $trail) {
     $trail->parent('index')->push('My championships', route('championships.index'));
 });
+
+// @todo fix these breadcrumbs to include correct variables
+Breadcrumbs::for('championships.show', function (Trail $trail) {
+    $trail->parent('championships.index')->push('Championship seasons', route('championships.show', ['championship' => 'a']));
+});
+
+Breadcrumbs::for('seasons.create', function (Trail $trail) {
+    $trail->parent('championships.show')->push('Add season', route('seasons.create', ['championship' => '1']));
+});

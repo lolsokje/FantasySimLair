@@ -23,6 +23,17 @@ class ChampionshipController extends Controller
     }
 
     /**
+     * @param Championship $championship
+     * @return Renderable
+     */
+    public function show(Championship $championship): Renderable
+    {
+        return view('championships.show', [
+            'championship' => $championship
+        ]);
+    }
+
+    /**
      * @return Renderable
      */
     public function create(): Renderable

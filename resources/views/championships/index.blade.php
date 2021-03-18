@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{ $championship->name }}</td>
                     <td>{{ $championship->channel->name }}</td>
-                    <td><a href="#" class="btn btn-primary">Show seasons</a></td>
+                    <td><a href="{{ route('championships.show', [$championship]) }}" class="btn btn-primary">Show seasons</a></td>
                 </tr>
             @endforeach
         </tbody>

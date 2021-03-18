@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -50,4 +51,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin']], function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('championships', [ChampionshipController::class, 'index'])->name('championships.index');
+    Route::get('championships/{championship}', [ChampionshipController::class, 'show'])->name('championships.show');
+
+    Route::get('championships/{championship}/season', [SeasonController::class, 'create'])->name('seasons.create');
+    Route::get('seasons/{season}/edit', [SeasonController::class, 'edit'])->name('seasons.edit');
+    Route::get('seasons/{season}', [SeasonController::class, 'show'])->name('seasons.show');
+    Route::patch('seasons/{season}', [SeasonController::class, 'update'])->name('seasons.update');
+    Route::post('championships/{championship}/season', [SeasonController::class, 'store'])->name('seasons.store');
 });
