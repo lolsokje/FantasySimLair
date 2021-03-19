@@ -39,8 +39,10 @@
                             <li><a href="{{ route('admin.requests') }}"><i class="fas fa-question-circle"></i>
                                     Championship requests
                                     @if ($requestsCount)
-                                        <span class="badge rounded-circle bg-danger">{{ $requestsCount }}</span></a></li>
+                                        <span class="badge rounded-circle bg-danger">{{ $requestsCount }}</span>
                                     @endif
+                                </a>
+                            </li>
                         </ul>
                     @endif
                     <li>
