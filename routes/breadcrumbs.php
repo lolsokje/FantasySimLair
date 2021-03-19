@@ -42,7 +42,7 @@ Breadcrumbs::for('championships.show', function (Trail $trail, Championship $cha
 });
 
 Breadcrumbs::for('seasons.create', function (Trail $trail, Championship $championship) {
-    $trail->parent('championships.show')->push('Add season', route('seasons.create', [$championship]));
+    $trail->parent('championships.show', $championship)->push('Add season', route('seasons.create', [$championship]));
 });
 
 Breadcrumbs::for('seasons.show', function (Trail $trail, Season $season) {

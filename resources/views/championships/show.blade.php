@@ -3,7 +3,9 @@
 @section('content')
     <h1>{{ $championship->name }} seasons</h1>
 
-    <a href="{{ route('seasons.create', [$championship]) }}" class="btn btn-primary">Add season</a>
+    @can('createSeason', $championship)
+        <a href="{{ route('seasons.create', [$championship]) }}" class="btn btn-primary">Add season</a>
+    @endcan
 
     <table class="table table-dark mt-4">
         <thead>
@@ -22,7 +24,9 @@
                         <a href="{{ route('seasons.show', [$season]) }}" class="btn btn-primary">View</a>
                     </td>
                     <td>
-                        <a href="{{ route('seasons.edit', [$season]) }}" class="btn btn-primary">Edit</a>
+                        @can('update', $season)
+                            <a href="{{ route('seasons.edit', [$season]) }}" class="btn btn-primary">Edit</a>
+                        @endcan
                     </td>
                 </tr>
             @endforeach
