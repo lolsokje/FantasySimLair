@@ -33,6 +33,10 @@ Breadcrumbs::for('admin.championships.create', function (Trail $trail) {
     $trail->parent('admin.championships')->push('Add championship', route('admin.championships.create'));
 });
 
+Breadcrumbs::for('admin.requests', function (Trail $trail) {
+    $trail->parent('index')->push('View championship requests', route('admin.requests'));
+});
+
 Breadcrumbs::for('championships.index', function (Trail $trail) {
     $trail->parent('index')->push('Championships', route('championships.index'));
 });
@@ -51,4 +55,8 @@ Breadcrumbs::for('seasons.show', function (Trail $trail, Season $season) {
 
 Breadcrumbs::for('seasons.edit', function (Trail $trail, Season $season) {
     $trail->parent('championships.show', $season->championship)->push('Edit season', route('seasons.edit', [$season]));
+});
+
+Breadcrumbs::for('requests.create', function (Trail $trail) {
+    $trail->parent('index')->push('Create championship request', route('requests.create'));
 });
