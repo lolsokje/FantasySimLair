@@ -32,12 +32,15 @@
                         <ul class="collapse {{ Request::is('admin/*') ? 'show' : '' }}" id="adminSubmenu">
                             <li><a href="{{ route('admin.users') }}"><i class="fas fa-users"></i> Users</a></li>
                             <li><a href="{{ route('admin.channels') }}"><i class="fas fa-hashtag"></i> Channels</a></li>
-                            <li><a href="{{ route('admin.championships') }}"><i class="fas fa-trophy"></i> Championships</a>
-                            </li>
+                            <li><a href="{{ route('admin.championships') }}"><i class="fas fa-trophy"></i> Championships</a></li>
+                            <li><a href="{{ route('admin.requests') }}"><i class="fas fa-question-circle"></i> Championship requests</a></li>
                         </ul>
                     @endif
                     <li>
                         <a href="{{ route('championships.index') }}"><i class="fas fa-trophy"></i> My championships</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('requests.create') }}"><i class="fas fa-question-circle"></i> Request championship</a>
                     </li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST">

@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\ChampionshipController;
 use App\Http\Controllers\ChannelController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin']], function () {
         Route::post('store', [ChampionshipController::class, 'store'])->name('admin.championships.store');
         Route::patch('{championship}', [ChampionshipController::class, 'update'])->name('admin.championships.update');
     });
+
+    Route::prefix('requests')->group(function () {
+        Route::get('', [AdminController::class, 'requests'])->name('admin.requests');
+        Route::patch('{championshipRequest}/approve', [RequestController::class, 'approve'])->name('admin.requests.approve');
+        Route::patch('{championshipRequest}/reject', [RequestController::class, 'reject'])->name('admin.requests.reject');
+    });
 });
 
 Route::middleware('auth')->group(function () {
@@ -62,4 +69,7 @@ Route::middleware('auth')->group(function () {
     Route::get('seasons/{season}', [SeasonController::class, 'show'])->name('seasons.show');
     Route::patch('seasons/{season}', [SeasonController::class, 'update'])->name('seasons.update');
     Route::post('championships/{championship}/season', [SeasonController::class, 'store'])->name('seasons.store');
+
+    Route::get('requests', [RequestController::class, 'create'])->name('requests.create');
+    Route::post('requests', [Requestcontroller::class, 'store'])->name('requests.store');
 });

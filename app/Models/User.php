@@ -55,4 +55,12 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Season::class, Championship::class);
     }
+
+    /**
+     * @return HasMany
+     */
+    public function championshipRequests(): HasMany
+    {
+        return $this->hasMany(ChampionshipRequest::class, 'user_id');
+    }
 }
