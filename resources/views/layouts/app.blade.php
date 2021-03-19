@@ -27,13 +27,20 @@
                             <a href="#" data-bs-toggle="collapse" data-bs-target="#adminSubmenu" role="button">
                                 <i class="fas fa-user-cog"></i>
                                 Admin
+                                @if ($requestsCount)
+                                    <span class="badge rounded-circle bg-danger">{{ $requestsCount }}</span>
+                                @endif
                             </a>
                         </li>
                         <ul class="collapse {{ Request::is('admin/*') ? 'show' : '' }}" id="adminSubmenu">
                             <li><a href="{{ route('admin.users') }}"><i class="fas fa-users"></i> Users</a></li>
                             <li><a href="{{ route('admin.channels') }}"><i class="fas fa-hashtag"></i> Channels</a></li>
                             <li><a href="{{ route('admin.championships') }}"><i class="fas fa-trophy"></i> Championships</a></li>
-                            <li><a href="{{ route('admin.requests') }}"><i class="fas fa-question-circle"></i> Championship requests</a></li>
+                            <li><a href="{{ route('admin.requests') }}"><i class="fas fa-question-circle"></i>
+                                    Championship requests
+                                    @if ($requestsCount)
+                                        <span class="badge rounded-circle bg-danger">{{ $requestsCount }}</span></a></li>
+                                    @endif
                         </ul>
                     @endif
                     <li>
