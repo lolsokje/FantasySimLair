@@ -9,6 +9,7 @@
                 <th>Name</th>
                 <th>Channel</th>
                 <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -17,6 +18,11 @@
                     <td>{{ $championship->name }}</td>
                     <td>{{ $championship->channel->name }}</td>
                     <td><a href="{{ route('championships.show', [$championship]) }}" class="btn btn-primary">Show seasons</a></td>
+                    <td>
+                        @can('update', $championship)
+                            <a href="{{ route('championships.edit', [$championship]) }}" class="btn btn-primary">Edit championship</a>
+                        @endcan
+                    </td>
                 </tr>
             @endforeach
         </tbody>

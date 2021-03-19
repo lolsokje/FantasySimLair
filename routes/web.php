@@ -45,13 +45,17 @@ Route::group(['prefix' => 'admin', 'middleware' => ['isAdmin']], function () {
     Route::prefix('championships')->group(function () {
         Route::get('', [AdminController::class, 'championships'])->name('admin.championships');
         Route::get('create', [ChampionshipController::class, 'create'])->name('admin.championships.create');
+        Route::get('{championship}/edit', [ChampionshipController::class, 'edit'])->name('admin.championships.edit');
         Route::post('store', [ChampionshipController::class, 'store'])->name('admin.championships.store');
+        Route::patch('{championship}', [ChampionshipController::class, 'update'])->name('admin.championships.update');
     });
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('championships', [ChampionshipController::class, 'index'])->name('championships.index');
     Route::get('championships/{championship}', [ChampionshipController::class, 'show'])->name('championships.show');
+    Route::get('championships/{championship}/edit', [ChampionshipController::class, 'edit'])->name('championships.edit');
+    Route::patch('championships/{championship}', [ChampionshipController::class, 'update'])->name('championships.update');
 
     Route::get('championships/{championship}/season', [SeasonController::class, 'create'])->name('seasons.create');
     Route::get('seasons/{season}/edit', [SeasonController::class, 'edit'])->name('seasons.edit');

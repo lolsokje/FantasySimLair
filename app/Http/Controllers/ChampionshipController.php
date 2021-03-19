@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateChampionshipRequest;
+use App\Http\Requests\UpdateChampionshipRequest;
 use App\Models\Championship;
 use App\Models\Channel;
 use App\Models\User;
@@ -48,6 +49,24 @@ class ChampionshipController extends Controller
     }
 
     /**
+     * @param Championship $championship
+     * @return Renderable
+     */
+    public function edit(Championship $championship): Renderable
+    {
+        $users = User::orderBy('name')->get();
+        $channels = Channel::orderBy('name')->get();
+
+        $view = auth()->user()->is_admin ? view('admin.championships.edit') : view('championships.edit');
+
+        return $view->with([
+            'championship' => $championship,
+            'users' => $users,
+            'channels' => $channels
+        ]);
+    }
+
+    /**
      * @param CreateChampionshipRequest $request
      * @return RedirectResponse
      */
@@ -66,5 +85,33 @@ class ChampionshipController extends Controller
         $championship->save();
 
         return redirect(route('admin.championships'))->with('notice', "Championship with name '{$request->get('name')}' created");
+    }
+
+    /**
+     * @param Championship $championship
+     * @param UpdateChampionshipRequest $request
+     * @return RedirectResponse
+     */
+    public function update(Championship $championship, UpdateChampionshipRequest $request): RedirectResponse
+    {
+        $isAdmin = auth()->user()->is_admin;
+        if ($isAdmin) {
+            $championship->user()->disassociate();
+            $championship->channel()->disassociate();
+
+            $user = User::find($request->get('user_id'));
+            $channel = Channel::find($request->get('channel_id'));
+
+            $championship->user()->associate($user);
+            $championship->channel()->associate($channel);
+        }
+
+        $championship->name = $request->get('name');
+
+        $championship->save();
+
+        $route = $isAdmin ? route('admin.championships') : route('championships.index');
+
+        return redirect($route)->with('notice', 'Championship updated');
     }
 }

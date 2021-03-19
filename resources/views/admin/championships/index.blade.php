@@ -11,6 +11,7 @@
                 <th>Name</th>
                 <th>User</th>
                 <th>Channel</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,9 @@
                     <td>{{ $championship->name }}</td>
                     <td>{{ $championship->user->name }}</td>
                     <td>{{ $championship->channel->name }}</td>
+                    <td>
+                        <a href="{{ route('admin.championships.edit', [$championship]) }}" class="btn btn-primary">Edit championship</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

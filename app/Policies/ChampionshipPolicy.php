@@ -26,4 +26,14 @@ class ChampionshipPolicy
     {
         return $user->provider_id === $championship->user_id;
     }
+
+    /**
+     * @param User $user
+     * @param Championship $championship
+     * @return bool
+     */
+    public function update(User $user, Championship $championship): bool
+    {
+        return $user->provider_id === $championship->user_id;
+    }
 }
