@@ -17,15 +17,15 @@
                 </div>
 
                 <p class="mt-4">All the below fields are optional, if you only have combined standings, enter that field. If you have
-                    both WDC and WCC standings, use those fields. It's not hard.</p>
+                    both drivers and constructors/teams standings, use those fields. It's not hard.</p>
 
                 <div class="form-group">
-                    <label for="wdc_standings" class="form-label">WDC standings image link</label>
+                    <label for="wdc_standings" class="form-label">Drivers' championship standings image link</label>
                     <input type="text" id="wdc_standings" name="wdc_standings" class="form-control" value="{{ $season->wdc_standings }}">
                 </div>
 
                 <div class="form-group mt-4">
-                    <label for="wcc_standings" class="form-label">WCC standings image link</label>
+                    <label for="wcc_standings" class="form-label">Teams' championship standings image link</label>
                     <input type="text" id="wcc_standings" name="wcc_standings" class="form-control" value="{{ $season->wcc_standings }}">
                 </div>
 
