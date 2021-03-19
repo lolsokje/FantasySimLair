@@ -6,6 +6,7 @@ use App\Http\Requests\CreateSeasonRequest;
 use App\Http\Requests\UpdateSeasonRequest;
 use App\Models\Championship;
 use App\Models\Season;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 
@@ -48,9 +49,12 @@ class SeasonController extends Controller
      * @param Season $season
      * @param UpdateSeasonRequest $request
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function update(Season $season, UpdateSeasonRequest $request): RedirectResponse
     {
+        $this->authorize('update', $season);
+
         $season->update($request->except('_token'));
 
         return redirect(route('championships.show', [$season->championship]))->with('notice', 'Season results updated');
@@ -60,9 +64,12 @@ class SeasonController extends Controller
      * @param Championship $championship
      * @param CreateSeasonRequest $request
      * @return RedirectResponse
+     * @throws AuthorizationException
      */
     public function store(Championship $championship, CreateSeasonRequest $request): RedirectResponse
     {
+        $this->authorize('createSeason', $championship);
+
         $championship->seasons()->create($request->except('_token'));
 
         return redirect(route('championships.show', [$championship]))->with('notice', 'Season results added');
