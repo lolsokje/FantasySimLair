@@ -24,6 +24,6 @@ class SeasonPolicy
      */
     public function update(User $user, Season $season): bool
     {
-        return $user->id === $season->championship->user_id;
+        return $user->provider_id === $season->championship->user_id;
     }
 }

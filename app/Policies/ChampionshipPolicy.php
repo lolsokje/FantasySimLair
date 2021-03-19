@@ -24,6 +24,6 @@ class ChampionshipPolicy
      */
     public function createSeason(User $user, Championship $championship): bool
     {
-        return $user->id === $championship->user_id;
+        return $user->provider_id === $championship->user_id;
     }
 }
