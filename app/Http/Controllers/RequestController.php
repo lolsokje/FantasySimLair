@@ -61,13 +61,13 @@ class RequestController extends Controller
     }
 
     /**
-     * @param ChampionshipRequest $request
+     * @param ChampionshipRequest $championshipRequest
      * @return RedirectResponse
      * @throws Exception
      */
-    public function reject(ChampionshipRequest $request): RedirectResponse
+    public function reject(ChampionshipRequest $championshipRequest): RedirectResponse
     {
-        $request->delete();
+        $championshipRequest->delete();
 
         return redirect(route('admin.requests'))->with('notice', 'Request rejected');
     }

@@ -14,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($requests as $channelRequest)
+            @foreach ($requests as $championshipRequest)
                 <tr>
-                    <td>{{ $channelRequest->user->name }}</td>
-                    <td>{{ $channelRequest->channel->name }}</td>
-                    <td>{{ $channelRequest->name }}</td>
+                    <td>{{ $championshipRequest->user->name }}</td>
+                    <td>{{ $championshipRequest->channel->name }}</td>
+                    <td>{{ $championshipRequest->name }}</td>
                     <td>
-                        <form action="{{ route('admin.requests.approve', [$channelRequest]) }}" method="POST">
+                        <form action="{{ route('admin.requests.approve', [$championshipRequest]) }}" method="POST">
                             @csrf
                             @method('PATCH')
 
@@ -28,7 +28,7 @@
                         </form>
                     </td>
                     <td>
-                        <form action="{{ route('admin.requests.reject', [$channelRequest]) }}" method="POST">
+                        <form action="{{ route('admin.requests.reject', [$championshipRequest]) }}" method="POST">
                             @csrf
                             @method('PATCH')
 
