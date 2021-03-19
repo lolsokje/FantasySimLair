@@ -30,7 +30,7 @@ class RequestController extends Controller
      */
     public function store(CreateRequestRequest $request): RedirectResponse
     {
-        $championshipRequest = $request->user()->requests()->create([
+        $championshipRequest = $request->user()->championshipRequests()->create([
             'name' => $request->get('name')
         ]);
 
